@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Reports - Manager</title>
+    <link rel="stylesheet" href="/inventory_managemenr_system/assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">Shop Inventory (Manager)</div>
+            <div class="user-info">
+                <span>Welcome, <span id="userNameDisplay">Admin</span></span>
+                <a href="/inventory_managemenr_system/public/manager/dashboard.html" class="btn btn-primary btn-sm">Dashboard</a>
+                <a href="/inventory_managemenr_system/public/manager/inventory.html" class="btn btn-primary btn-sm">Inventory</a>
+                <a href="#" id="logoutBtn" class="btn btn-danger btn-sm">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="header-section mt-1">
+            <h2>Inventory Reports</h2>
+            <p>Generate summaries and stock movement logs.</p>
+        </div>
+
+        <div class="mt-2 card">
+            <h3>Generate Stock Report</h3>
+            <form id="reportFilterForm" class="mt-1" style="display: flex; gap: 1rem; align-items: flex-end;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="reportInterval">Time Period</label>
+                    <select id="reportInterval" name="reportInterval" style="width: 200px;">
+                        <option value="daily">Daily Report</option>
+                        <option value="weekly">Weekly Report</option>
+                        <option value="monthly">Monthly Report</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Generate Report</button>
+                <button type="button" id="printReportBtn" class="btn btn-success">Print/Save PDF</button>
+            </form>
+        </div>
+
+        <div class="mt-2" id="reportContent">
+            <div id="reportSummary" class="card-grid">
+                <!-- Summary cards will be injected here -->
+            </div>
+            
+            <div class="table-container mt-2">
+                <h3>Stock Movements Log</h3>
+                <table id="reportMovementsTable">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Product</th>
+                            <th>Type</th>
+                            <th>Change</th>
+                            <th>Previous Qty</th>
+                            <th>New Qty</th>
+                            <th>Performed By</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportMovementsBody">
+                        <tr>
+                            <td colspan="7" class="text-center">Select an interval to generate movements log.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="/inventory_managemenr_system/assets/js/api.js"></script>
+    <script src="/inventory_managemenr_system/assets/js/auth.js"></script>
+    <script src="/inventory_managemenr_system/assets/js/reports.js"></script>
+     <script src="/inventory_managemenr_system/assets/js/inventory.js"></script>
+     
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            authHelper.checkAccess('manager');
+        });
+    </script>
+</body>
+</html>

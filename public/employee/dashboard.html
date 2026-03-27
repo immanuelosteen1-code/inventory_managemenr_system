@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - Inventory Management System</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">Shop Inventory (Employee)</div>
+            <div class="user-info">
+                <span>Welcome, <span id="userNameDisplay">Employee</span></span>
+                <a href="/public/employee/inventory.html" class="btn btn-primary btn-sm">Inventory</a>
+                <a href="#" id="logoutBtn" class="btn btn-danger btn-sm">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card-grid">
+            <div class="card">
+                <h3>Product Search</h3>
+                <p>Quickly find stock levels and locations</p>
+                <div class="mt-1">
+                    <input type="text" id="searchInput" placeholder="Search by name or category" style="padding: 0.5rem; width: 100%;">
+                    <button id="searchBtn" class="btn btn-primary mt-1" style="width: 100%;">Search Inventory</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Low Stock Items</h3>
+                <p id="lowStockAlertsCount" style="font-size: 2rem; font-weight: bold;">0</p>
+                <p>Items needing attention</p>
+            </div>
+            <div class="card">
+                <h3>Update Stock</h3>
+                <p>Record stock-in or stock-out events</p>
+                <a href="/public/employee/inventory.html" class="btn btn-success mt-1" style="width: 100%;">Go to Inventory List</a>
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <h2>Recent Movements</h2>
+            <div class="table-container">
+                <table id="recentMovementsTable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Product</th>
+                            <th>Change</th>
+                            <th>New Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentMovementsBody">
+                        <tr>
+                            <td colspan="4" class="text-center">No recent movements recorded.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="/assets/js/api.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/inventory.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            authHelper.checkAccess('employee');
+            
+            // Fetch alerts count
+            try {
+                const alertsResponse = await api.getAlerts();
+                if (alertsResponse.status === 'success') {
+                    document.getElementById('lowStockAlertsCount').textContent = alertsResponse.data.length;
+                }
+            } catch (error) {
+                console.error('Error fetching alerts:', error);
+            }
+        });
+    </script>
+</body>
+</html>

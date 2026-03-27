@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Manager</title>
+    <link rel="stylesheet" href="/inventory_managemenr_system/assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">Shop Inventory (Manager)</div>
+            <div class="user-info">
+                <span>Welcome, <span id="userNameDisplay">Admin</span></span>
+                <a href="/inventory_managemenr_system/public/manager/dashboard.html" class="btn btn-primary btn-sm">Dashboard</a>
+                <a href="/inventory_managemenr_system/public/manager/reports.html" class="btn btn-primary btn-sm">Reports</a>
+                <a href="#" id="logoutBtn" class="btn btn-danger btn-sm">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="header-section mt-1">
+            <h2>Inventory Management</h2>
+            <p>View, add, edit, and delete items from your shop's inventory.</p>
+        </div>
+
+        <div class="mt-2 card">
+            <h3>Add New Product</h3>
+            <form id="addProductForm" class="mt-1" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" name="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" id="category" name="category" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Initial Quantity</label>
+                    <input type="number" id="quantity" name="quantity" required min="0">
+                </div>
+                <div class="form-group">
+                    <label for="unitPrice">Unit Price ($)</label>
+                    <input type="number" id="unitPrice" name="unitPrice" required step="0.01" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="reorderLevel">Reorder Level</label>
+                    <input type="number" id="reorderLevel" name="reorderLevel" required min="1" value="10">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="2"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success" style="grid-column: span 2;">Add Product</button>
+            </form>
+        </div>
+
+        <div class="mt-2">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Product Catalog</h3>
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="text" id="searchInput" placeholder="Search products..." style="padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    <button id="searchBtn" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+            <div class="table-container mt-1">
+                <table id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTableBody">
+                        <tr>
+                            <td colspan="6" class="text-center">Loading inventory...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="/inventory_managemenr_system/assets/js/api.js"></script>
+    <script src="/inventory_managemenr_system/assets/js/auth.js"></script>
+    <script src="/inventory_managemenr_system/assets/js/inventory.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            authHelper.checkAccess('manager');
+        });
+    </script>
+</body>
+</html>
