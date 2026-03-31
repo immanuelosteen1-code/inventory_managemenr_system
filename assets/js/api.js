@@ -33,8 +33,9 @@ const api = {
 
         try {
             const response = await fetch(url, options);
+            const result = await response.json();
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(result.message || `HTTP error! status: ${response.status}`);
             }
             return await response.json();
         } catch (error) {
@@ -75,12 +76,14 @@ const authHelper = {
         localStorage.removeItem('user');
         localStorage.removeItem('user_token');
         localStorage.removeItem('user_role');
-        window.location.href = '/index.html';
+        const basePath = '/inventory_managemenr_system';
+        window.location.href = `${basePath}/public/index.html`;
     },
     checkAccess: (requiredRole) => {
         const role = localStorage.getItem('user_role');
+        const basePath = '/inventory_managemenr_system';
         if (!role || (requiredRole && role !== requiredRole)) {
-            window.location.href = '/index.html';
+            window.location.href = `${basePath}/public/index.html`;
         }
     }
 };

@@ -1,7 +1,7 @@
 #ifndef REPORTS_H
 #define REPORTS_H
 
-#include <mysql.h>
+#include <mysql/mysql.h>
 
 typedef enum {
     REPORT_DAILY,

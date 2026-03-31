@@ -4,9 +4,9 @@ USE inventory_db;
 -- Sample Users (Password is 'password123' for all)
 -- In a real scenario, these would be securely hashed.
 INSERT INTO users (full_name, username, password_hash, role) VALUES
-('Admin Manager', 'manager', 'ef92b778bafe421e592022c00e8f000b0e9391e56920a03006d917f9e83002f5', 'manager'),
-('Jane Employee', 'employee', 'ef92b778bafe421e592022c00e8f000b0e9391e56920a03006d917f9e83002f5', 'employee');
-('Jane Employee', 'employee', 'ef92b778bafe421e592022c00e8f000b0e9391e56920a03006d917f9e83002f5', 'employee');
+('Admin Manager', 'manager', SHA2('password1095', 256), 'manager'),
+('Jane Employee', 'employee', SHA2('password1095', 256), 'employee');
+
 
 -- Sample Products
 INSERT INTO products (product_name, category, quantity, unit_price, reorder_level, description) VALUES
